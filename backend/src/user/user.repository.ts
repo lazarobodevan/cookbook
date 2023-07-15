@@ -12,7 +12,7 @@ export class UserRepository{
         return user;
     }
 
-    getById(id:number){
+    getById(id:string){
         return this.users.find(user =>{
             user.id === id
         });

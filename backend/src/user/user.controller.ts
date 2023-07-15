@@ -18,7 +18,8 @@ export class UserController{
         userEntity.name = user.name;
 
         let userCreated = this.userRepository.save(userEntity);
-
+        userCreated.password = '';
+        
         return userCreated;
     }
 
