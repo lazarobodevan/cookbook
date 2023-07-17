@@ -12,8 +12,13 @@ export class CommentService{
     ){}
 
     async createComment(commentEntity: CommentEntity){
-        //await this.commentRepository.save(commentEntity);
-        return 'User created';
+        return this.commentRepository.save(commentEntity);
+    }
+
+    async updateComment(commentEntity: CommentEntity){
+        return this.commentRepository.save({
+            comment: commentEntity.comment
+        })
     }
 
 }

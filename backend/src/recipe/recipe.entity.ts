@@ -20,13 +20,13 @@ export class RecipeEntity{
     @Column({name:'categories', nullable: false})
     categories: string;
 
-    @Column({name: 'likes'})
+    @Column({name: 'likes', default: 0})
     likes: number;
 
-    @OneToMany(()=> CommentEntity, (commentEntity) => commentEntity.recipie)
+    @OneToMany(()=> CommentEntity, (commentEntity) => commentEntity.recipe)
     comments: CommentEntity[];
 
-    @ManyToOne(()=> UserEntity, (userEntity)=>userEntity.recipies)
+    @ManyToOne(()=> UserEntity, (userEntity)=>userEntity.recipies, {nullable: false})
     user: UserEntity;
 
     @CreateDateColumn()

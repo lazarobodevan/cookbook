@@ -29,7 +29,7 @@ export class UserEntity{
 
     @ManyToMany(()=> RecipeEntity, {cascade: true})
     @JoinTable()
-    likes?: RecipeEntity[]
+    likes: RecipeEntity[]
 
     @CreateDateColumn({name: 'created_at'})
     createdAt: string;

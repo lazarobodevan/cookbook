@@ -6,16 +6,16 @@ import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } f
 export class CommentEntity{
 
     @PrimaryGeneratedColumn('uuid')
-    id: number;
+    id: string;
 
-    @ManyToOne(()=> UserEntity, (userEntity)=> userEntity.comments)
-    user: string;
+    @ManyToOne(()=> UserEntity, (userEntity)=> userEntity.comments, {nullable:false})
+    user!: UserEntity;
 
     @Column({name:'comment', length:255, nullable: false})
     comment: string;
 
-    @ManyToOne(()=>RecipeEntity, (recipeEntity) => recipeEntity.comments)
-    recipie: RecipeEntity;
+    @ManyToOne(()=>RecipeEntity, (recipeEntity) => recipeEntity.comments, {nullable: false})
+    recipe!: RecipeEntity;
 
     @CreateDateColumn()
     _createdAt: Date;
