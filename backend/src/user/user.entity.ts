@@ -1,6 +1,7 @@
 import { CommentEntity } from "src/comment/comment.entity";
 import { RecipeEntity } from "src/recipe/recipe.entity";
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BeforeInsert, Column, CreateDateColumn, DeleteDateColumn, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import {hashSync} from 'bcrypt'
 
 @Entity({name:'users'})
 export class UserEntity{
@@ -40,5 +41,9 @@ export class UserEntity{
     @DeleteDateColumn({name: 'deleted_at'})
     deletedAt: string;
 
+    @BeforeInsert()
+    hashPassword(){
+        this.password = hashSync(this.password, 10);
+    }
     
 }

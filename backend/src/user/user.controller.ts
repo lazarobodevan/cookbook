@@ -1,8 +1,9 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Param, ParseUUIDPipe, Post } from "@nestjs/common";
+import { Body, Controller, Get, HttpException, HttpStatus, Param, ParseUUIDPipe, Post, UseGuards } from "@nestjs/common";
 import { CreateUserDTO } from "./dto/createUser.dto";
 import { UserEntity } from "./user.entity";
 import { ListUserDTO } from "./dto/listUser.dto";
 import { UserService } from "./user.service";
+import { AuthGuard } from "@nestjs/passport";
 
 @Controller('/users')
 export class UserController{
@@ -27,15 +28,16 @@ export class UserController{
             throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
         }
 
-        this.userService.createUser(userEntity);
+        const createdUser = await this.userService.createUser(userEntity);
         
         return {
-            user: new ListUserDTO(userEntity.id, userEntity.name, userEntity.email),
+            user: new ListUserDTO(createdUser.id, createdUser.name, createdUser.email),
             message: 'User created successfully'
         };
     }
 
     @Get('/:id')
+    @UseGuards(AuthGuard('jwt'))
     async getUser(@Param('id', new ParseUUIDPipe()) id: string){
         const user = await this.userService.getById(id);
         return {
@@ -44,6 +46,7 @@ export class UserController{
     }
 
     @Get('/likes/:userid')
+    @UseGuards(AuthGuard('jwt'))
     async getLikedRecipes(@Param('userId') userId:string){
         return await this.userService.getLikedRecipes(userId);
     }

@@ -14,7 +14,8 @@ export class UserService{
 
     async createUser(userEntity: UserEntity){
         try{
-            await this.userRepository.save(userEntity);
+            const user = await this.userRepository.save(userEntity);
+            return user;
         }catch(e){
             console.log(e);
             throw new InternalServerErrorException('Error while creating user');
