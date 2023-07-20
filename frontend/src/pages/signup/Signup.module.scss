@@ -1,0 +1,29 @@
+.content{
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 45vw 55vw;
+    grid-template-areas: "img frm";
+    height: 100vh;
+
+    .image{
+        width: 45vw;
+        height: 100vh;
+        grid-area: "img";
+        object-fit: cover;
+    }
+
+    .form{
+        grid-area: "frm";
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding-top: 40px;
+        background-color: #ECECEC;
+
+        h1{
+            font-family: 'Dancing Script';
+            font-size: 80px;
+            color: #3C3C3C;
+        }
+    }
+}

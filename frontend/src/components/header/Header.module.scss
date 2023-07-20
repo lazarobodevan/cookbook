@@ -1,0 +1,24 @@
+.header{
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 85px calc(100vw - 85px);
+    grid-template-areas: "img nav";
+    width: 100vw;
+    height: 100px;
+
+    padding-left: 40px;
+
+    background-color: #353535;
+    align-items: center;
+
+    img{
+        grid-area: "img";
+        width: 83px;
+        height: 83px;
+    }
+
+    .nav{
+        display: flex;
+        justify-content: center;
+    }
+}

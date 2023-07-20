@@ -9,10 +9,11 @@ interface Props {
 export default function FormInput({placeholder, onChange, style}:Props){
     return(
         <input 
+        style={style}
             className={styles.input}
             placeholder={placeholder} 
             onChange={onChange}
-            style={style}
+            
         />
     )
 }

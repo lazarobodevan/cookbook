@@ -1,15 +1,23 @@
 .button{
-    width: 218px;
-    height: 80px;
+    width: fit-content;
+    padding: 0px 40px;
+    height: 60px;
     background-color: #F48432;
     border-radius: 60px;
     border: none;
     cursor: pointer;
+    transition: 0.8s;
+    
 
     .text{
         color: white;
         font-family: 'Poppins';
-        font-size: 26px;
-        font-weight: 700;
+        font-size: 22px;
+        font-weight: 600;
     }
+}
+
+.button:hover{
+    transition: 1s;
+    box-shadow: 0px 4px 12px 1px rgba(255, 255, 255, 0.25);
 }
