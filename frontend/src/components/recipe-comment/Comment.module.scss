@@ -1,0 +1,28 @@
+.comment{
+    width: 605px;
+    background: #FDFDFD;
+    padding: 20px 20px 0 20px;
+    .header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    
+        .person_container{
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            
+            .picture{
+                width: 40px;
+                height: 40px;
+                border-radius: 40px;
+                background-color: grey;
+                margin-right: 20px;
+            }
+        }
+    }
+
+    .comment_text{
+        margin-bottom: 20px;
+    }
+}
