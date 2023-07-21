@@ -1,0 +1,66 @@
+.wrapper{
+    display: grid;
+    width: 100%;
+    height: fit-content;
+    grid-template-rows: auto;
+    grid-template-columns: auto;
+
+    .expander{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 50%;
+        background: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,1) 100%);
+        grid-column: 1;
+        grid-row: 1;
+        align-self: flex-end;
+        z-index: 10;
+
+        .expander_text{
+            color: #F48432;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .expander_text:hover{
+            transition: 0.4s;
+            font-size: 14px;
+        }
+    }
+
+    .new_post{
+        grid-column: 1;
+        grid-row: 1;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: fit-content;
+        padding: 20px;
+        border: 1px solid rgba($color: #000000, $alpha: .1);
+        border-radius: 10px;
+        overflow: hidden;
+    
+        .title{
+            margin-top: 10px;
+        }
+    
+        .title_input{
+            font-size: 26px;
+            font-weight: bold;
+            padding-left: 10px;
+        }
+    
+        .warning{
+            font-size: 12px;
+            color: blue;
+        }
+    
+        .textarea{
+            height: 105px;
+            word-wrap: break-word;
+            white-space: pre-line;
+            padding: 10px;
+        }
+    }
+}

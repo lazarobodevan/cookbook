@@ -14,7 +14,7 @@ export default function Header(){
                         opacity: isActive ? '1' : '0.4'
                     };
                 }}>
-                    <FaHome size={34}/>
+                    <FaHome size={28}/>
                 </NavLink>
 
                 <NavLink to={'/search'} style={({ isActive, isPending }) => {
@@ -23,7 +23,7 @@ export default function Header(){
                         opacity: isActive ? '1' : '0.4'
                     };
                 }}>
-                    <FaSearch size={34}/>
+                    <FaSearch size={26}/>
                 </NavLink>
 
                 <NavLink to={'/following'} style={({ isActive, isPending }) => {
@@ -32,7 +32,7 @@ export default function Header(){
                         opacity: isActive ? '1' : '0.4'
                     };
                 }}>
-                    <FaUserGroup size={34}/>
+                    <FaUserGroup size={26}/>
                 </NavLink>
             </nav>
         </div>

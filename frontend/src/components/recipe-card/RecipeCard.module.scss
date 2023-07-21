@@ -53,5 +53,14 @@
 
     .comments{
         padding: 20px 68px 20px 68px;
+        display: flex;
+        flex-direction: column;
+
+        .textarea{
+            width: 100%;
+            padding: 10px;
+        }
     }
+
+
 }

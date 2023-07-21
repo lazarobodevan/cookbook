@@ -4,7 +4,7 @@
     grid-template-columns: 85px calc(100vw - 85px);
     grid-template-areas: "img nav";
     width: 100%;
-    height: 100px;
+    height: 70px;
 
     padding-left: 40px;
 
@@ -17,8 +17,8 @@
 
     img{
         grid-area: "img";
-        width: 83px;
-        height: 83px;
+        width: 45px;
+        height: 45px;
     }
 
     .nav{

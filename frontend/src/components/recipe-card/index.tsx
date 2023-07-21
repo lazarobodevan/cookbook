@@ -4,6 +4,8 @@ import {AiOutlineHeart, AiFillHeart} from 'react-icons/ai'
 import {BiCommentDetail} from 'react-icons/bi'
 import Divisor from '../divisor';
 import RecipeComment from '../recipe-comment';
+import { useState } from 'react';
+import Button from '../button';
 
 interface Props{
     personName: string;
@@ -15,6 +17,18 @@ interface Props{
 }
 
 export default function RecipeCard(){
+
+    const [isCommentsVisible, setIsCommentsVisible] = useState(false);
+    const [isPostLiked, setIsPostLiked] = useState(false);
+
+    function handleCommentsVisible(){
+        setIsCommentsVisible(!isCommentsVisible);
+    }
+
+    function handlePostLiked(){
+        setIsPostLiked(!isPostLiked);
+    }
+
     return(
         <div className={styles.card}>
             <div className={styles.header}>
@@ -36,16 +50,34 @@ export default function RecipeCard(){
             </div>
             <div className={styles.footer}>
                 <div className={styles.actions}>
-                    <AiOutlineHeart size={32} style={{color:'#5B5B5B', cursor:'pointer'}}/>
-                    <BiCommentDetail size={32} style={{color:'#5B5B5B', cursor:'pointer'}}/>
+                    <div onClick={handlePostLiked}>
+                        {isPostLiked ? 
+                            <AiFillHeart size={32} style={{color:'red', cursor:'pointer'}}/>
+                            :
+                            <AiOutlineHeart size={32} style={{color:'#5B5B5B', cursor:'pointer'}}/>                            
+                        }
+                    </div>
+                    <div onClick={handleCommentsVisible}>
+                        <BiCommentDetail size={32} style={{color:'#5B5B5B', cursor:'pointer'}}/>
+                    </div>
                 </div>
             </div>
-            <Divisor/>
-            <section className={styles.comments}>
-                <h3 className={styles.comments_title}>Comentários</h3>
-                <RecipeComment/>
-            </section>
+            {isCommentsVisible && 
+                <>
+                    <Divisor/>
+                    <section className={styles.comments}>
 
+                        <h3 className={styles.comments_title}>Comentários</h3>
+                        <textarea rows={3} className={styles.textarea} placeholder='Deixe seu comentário...'/>
+                        <Button onClick={()=>{return}} 
+                            text='Comentar' 
+                            textStyle={{fontSize:'12px'}} 
+                            style={{width:'100px', padding:0, alignSelf:'flex-end', marginTop:'10px'}}/>
+
+                        <RecipeComment/>
+                    </section>
+                </>
+            }
         </div>
     )
 }
