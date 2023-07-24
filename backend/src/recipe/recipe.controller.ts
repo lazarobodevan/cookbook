@@ -51,11 +51,7 @@ export class RecipeController{
         @Param('postId', new ParseUUIDPipe()) postId:string, 
         @Param('userId', new ParseUUIDPipe()) userId:string
     ){
-        //If post is not liked already
-        // - Search if is not liked
-        // - Update post likes
-        // - Add reference of post liked to user
-
+ 
         //Check if post exists
         let post = await this.recipeService.getById(postId);
         if(!post){
@@ -69,7 +65,7 @@ export class RecipeController{
         }
 
         //Check if post is already liked
-        // - If yes, then remove the post relationship with the user and decrement number
+        // - If yes, then remove the post relationship with the user and decrement the number
         const isPostLiked = await this.userService.getLikedPostById(postId, userId);
         if(isPostLiked){
             post.likes--;
