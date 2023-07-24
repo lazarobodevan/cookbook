@@ -1,0 +1,12 @@
+.container{
+    width: 100%;
+    cursor: pointer;
+    .recipe{
+        display: flex;
+        justify-content: space-between;
+        margin: 0px 0 20px 0;
+        .name{
+            font-size: 18px;
+        }
+    }
+}

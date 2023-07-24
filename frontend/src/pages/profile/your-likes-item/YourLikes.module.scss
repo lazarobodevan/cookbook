@@ -1,0 +1,20 @@
+.container{
+    margin-bottom: 20px;
+    .like{
+        display: flex;
+        justify-content: space-between;
+        margin: 0px 0 10px 0;
+        
+        .info_wrapper{
+            display: flex;
+            flex-direction: column;
+
+            .recipe_name{
+                font-size: 18px;
+            }
+            .person_name{
+                font-size: 14px;
+            }
+        }
+    }
+}

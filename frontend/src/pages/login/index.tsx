@@ -12,7 +12,7 @@ export default function Login(){
                 <h1>Cookbook</h1>
                 <FormInput placeholder='Email' onChange={() => {return}} style={{marginBottom:20, border: '1px solid rgba(255, 255, 255, 0.69)'}}/>
                 <FormInput placeholder='Senha' onChange={() => {return}} style={{marginBottom:30, border: '1px solid rgba(255, 255, 255, 0.69)'}}/>
-                <Button text='Login'style={{marginBottom:20}} onClick={()=> {navigate('/signup')}}/>
+                <Button text='Login'style={{marginBottom:20}} onClick={()=> {navigate('/home')}}/>
                 <Link to={'/signup'} className={styles.link} >Cadastre-se</Link>
             </section>
 

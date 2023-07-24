@@ -1,0 +1,25 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    .person{
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        margin-right: 40px;
+        cursor: pointer;
+
+        .picture{
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            background-color: #D9D9D9;
+            border-radius: 40px;
+        }
+
+        .name{
+            font-size: 18px;
+        }
+    }
+}
