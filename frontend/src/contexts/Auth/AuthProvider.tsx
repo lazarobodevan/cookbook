@@ -1,28 +1,25 @@
 import { useState } from "react";
 import { AuthContext } from "./AuthContext";
-import { User } from "../../types/User";
+import { UserAuth } from "../../types/UserAuth";
 import AuthService from "../../services/authService";
-import { IUserAuth } from "../../common/interfaces/IUserAuth";
+import { User } from "../../types/User";
 
 
 export default function AuthProvider({children}:{children: JSX.Element}){
-    const [user,setUser]= useState<IUserAuth | null>(null);
+    const [user,setUser]= useState<User | null>(null);
 
     async function login(email:string, password:string){
         const data = await AuthService.login(email, password);
         if(data.user && data.token){
-            setUser({
-                user:{
-                    id: data.user.id,
-                    name: data.user.name,
-                    email: data.user.email
-                },
-                token: data.token
-            });
-            console.log(user);
+            setUser(data.user);
+
             return true;
         }
         return false;
+    }
+
+    function setToken(token:string){
+        localStorage.setItem('token',token);
     }
 
     function logout(){

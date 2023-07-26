@@ -1,10 +1,10 @@
-import { IUserAuth } from "../common/interfaces/IUserAuth";
+import { UserAuth } from "../types/UserAuth";
 
 class AuthService{
 
     private API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-    public async login(email:string, password:string):Promise<IUserAuth>{
+    public async login(email:string, password:string):Promise<UserAuth>{
         const body = {
             email,
             password

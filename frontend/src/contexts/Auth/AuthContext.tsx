@@ -1,9 +1,8 @@
 import { createContext } from "react";
 import { User } from "../../types/User";
-import { IUserAuth } from "../../common/interfaces/IUserAuth";
 
 export type AuthContextType ={
-    user: IUserAuth | null;
+    user: User | null;
     login: (email:string, password:string) => Promise<boolean>;
     logout: () => void;
 }
