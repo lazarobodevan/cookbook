@@ -13,11 +13,16 @@ export default function AuthProvider({children}:{children: JSX.Element}){
             const storageData = localStorage.getItem('token');
             if(storageData){
                 const data = await AuthService.validateToken(storageData);
-                if(data.user){
-                    setUser(data.user)
+                if(data.id){
+                    setUser({
+                        id: data.id,
+                        email:data.email,
+                        name: data.name
+                    })
                 }
             }
         }
+        validateToken();
     },[])
 
     async function login(email:string, password:string){
