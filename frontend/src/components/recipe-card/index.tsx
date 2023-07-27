@@ -4,22 +4,24 @@ import {AiOutlineHeart, AiFillHeart} from 'react-icons/ai'
 import {BiCommentDetail} from 'react-icons/bi'
 import Divisor from '../divisor';
 import RecipeComment from '../recipe-comment';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '../button';
 import { RecipePost } from '../../types/RecipePost';
 import {format} from 'date-fns'
 
 
 interface Props{
-    post:RecipePost
+    post:RecipePost,
+    isLiked: boolean
 }
 
 export default function RecipeCard(
-    {   post
+    {   post,
+        isLiked
     }:Props){
 
     const [isCommentsVisible, setIsCommentsVisible] = useState(false);
-    const [isPostLiked, setIsPostLiked] = useState(false);
+    const [isPostLiked, setIsPostLiked] = useState(isLiked);
 
     function handleCommentsVisible(){
         setIsCommentsVisible(!isCommentsVisible);
@@ -28,6 +30,10 @@ export default function RecipeCard(
     function handlePostLiked(){
         setIsPostLiked(!isPostLiked);
     }
+
+    useEffect(()=>{
+        
+    },[isPostLiked]);
 
     return(
         <div className={styles.card}>

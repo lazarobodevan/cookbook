@@ -80,9 +80,17 @@ export class UserService{
      }
 
      async getLikedRecipes(userId: string){
-        return await this.userRepository.find({
+        return await this.userRepository.findOne({
             relations:{
                 likes:true
+            },
+            where:{
+                id:userId
+            },
+            select:{
+                likes:{
+                    id:true
+                }
             }
         });
      }

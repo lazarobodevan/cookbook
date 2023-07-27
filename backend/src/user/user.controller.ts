@@ -45,7 +45,7 @@ export class UserController{
         }
     }
 
-    @Get('/likes/:userid')
+    @Get('/likes/:userId')
     @UseGuards(AuthGuard('jwt'))
     async getLikedRecipes(@Param('userId') userId:string){
         return await this.userService.getLikedRecipes(userId);
