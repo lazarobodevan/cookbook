@@ -1,3 +1,4 @@
+import FetchAPI from "../common/Fetch";
 import { UserAuth } from "../types/UserAuth";
 
 class AuthService{
@@ -10,14 +11,13 @@ class AuthService{
             password
         }
 
-        return await fetch(`${this.API_BASE_URL}/auth/login`, {body: JSON.stringify(body), method:'POST', mode:'cors', headers:{'Content-Type': 'application/json'}})
-            .then(resp => resp.json());
+        return await FetchAPI('/auth/login','POST',body)
     }
 
     public async validateToken(token: string){
+
+        return FetchAPI('/auth/validate','POST',{token})
     
-        return await fetch(`${this.API_BASE_URL}/auth/login`, {body: JSON.stringify({token})})
-            .then(resp => resp.json())
     }
 
 }
