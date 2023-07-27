@@ -17,13 +17,17 @@ export class RecipeService{
     }
 
     async getRecipes(){
-        return await this.recipeRepository.find({
-            order:{
-                _createdAt: 'DESC'
-            },
-            relations:{user:true},
-            select:{user:{name:true, id:true}}
-        })
+        return await this.recipeRepository.query(`
+            SELECT recipes.id, recipes.name, "ingredients", "steps", "categories", "likes", users.name, COUNT(c) as comments
+            FROM public.recipes
+            INNER JOIN users
+            on "userId" = users.id
+
+            INNER JOIN public.comments as c
+            on recipes.id = "recipeId"
+
+            GROUP BY recipes.id, users.name
+        `)
     }
 
     async updateLikesNumber(recipeEntity: RecipeEntity){

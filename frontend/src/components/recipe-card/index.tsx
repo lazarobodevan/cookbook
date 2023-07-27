@@ -6,8 +6,9 @@ import Divisor from '../divisor';
 import RecipeComment from '../recipe-comment';
 import { useState } from 'react';
 import Button from '../button';
-import { Recipe } from '../../types/Recipe';
 import { RecipePost } from '../../types/RecipePost';
+import {format} from 'date-fns'
+
 
 interface Props{
     post:RecipePost
@@ -28,8 +29,6 @@ export default function RecipeCard(
         setIsPostLiked(!isPostLiked);
     }
 
-    console.log(post)
-
     return(
         <div className={styles.card}>
             <div className={styles.header}>
@@ -37,7 +36,10 @@ export default function RecipeCard(
                     <div className={styles.picture}></div>
                     <p className={styles.person_name}>{post.user.name}</p>
                 </div>
-                <span className={styles.timePosted}>{post._createdAt}</span>
+                <span className={styles.timePosted}>{
+                        format(new Date(post._createdAt), 'dd/MM/yyyy')
+                    }
+                </span>
             </div>
             <Divisor/>
             <div className={styles.recipe}>
