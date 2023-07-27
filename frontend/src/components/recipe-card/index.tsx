@@ -32,8 +32,8 @@ export default function RecipeCard(
     }
 
     useEffect(()=>{
-        
-    },[isPostLiked]);
+        setIsPostLiked(isLiked)
+    },[isLiked]);
 
     return(
         <div className={styles.card}>
@@ -63,8 +63,9 @@ export default function RecipeCard(
                         {isPostLiked ? 
                             <AiFillHeart size={32} style={{color:'red', cursor:'pointer'}}/>
                             :
-                            <AiOutlineHeart size={32} style={{color:'#5B5B5B', cursor:'pointer'}}/>                            
+                            <AiOutlineHeart size={32} style={{color:'#5B5B5B', cursor:'pointer'}}/>  
                         }
+                        {post.likes}
                     </div>
                     <div onClick={handleCommentsVisible}>
                         <BiCommentDetail size={32} style={{color:'#5B5B5B', cursor:'pointer'}}/>

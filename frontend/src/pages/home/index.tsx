@@ -9,7 +9,7 @@ import { AuthContext } from '../../contexts/Auth/AuthContext'
 export default function Home(){
 
     const [recipes, setRecipes] = useState<RecipePost[] | []>()
-    const [likedRecipes, setLikedRecipes] = useState<{id:string}[]>([]);
+    const [likedRecipes, setLikedRecipes] = useState<{id:string}[] | []>([]);
 
     const auth = useContext(AuthContext);
 
@@ -19,7 +19,7 @@ export default function Home(){
             setRecipes(recipes);
         }
         const getLikedRecipes = async()=>{
-            const liked = await postService.getLikedRecipes(auth.user!.id)
+            const liked = await postService.getLikedRecipes(auth.user!.id);
             setLikedRecipes(liked);
         }
         getRecipes();
@@ -31,8 +31,8 @@ export default function Home(){
         <section className={styles.content}>
             <NewPostFrm/>
             {recipes?.map(item => {
-                const isLiked = likedRecipes.find((el:any) => el.id === item.id) ? true: false;
-                return <RecipeCard post={item} isLiked={isLiked} key={item.id}/>
+                const isLiked = likedRecipes.find((el:any) => el.id === item.id);
+                return <RecipeCard post={item} isLiked={!isLiked ? false: true} key={item.id}/>
             })}
         </section>
         </>
