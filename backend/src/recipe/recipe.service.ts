@@ -23,7 +23,7 @@ export class RecipeService{
             INNER JOIN users
             on "userId" = users.id
 
-            INNER JOIN public.comments as c
+            LEFT JOIN public.comments as c
             on recipes.id = "recipeId"
 
             GROUP BY recipes.id, users.name
