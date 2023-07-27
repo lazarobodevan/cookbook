@@ -18,7 +18,7 @@ export class RecipeService{
 
     async getRecipes(){
         return await this.recipeRepository.query(`
-            SELECT recipes.id, recipes.name, "ingredients", "steps", "categories", "likes", users.name, COUNT(c) as comments
+            SELECT recipes.id, recipes.name as recipename, "ingredients", "steps", "categories", "likes", users.name, COUNT(c) as comments, recipes."_createdAt"
             FROM public.recipes
             INNER JOIN users
             on "userId" = users.id

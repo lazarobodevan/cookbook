@@ -2,13 +2,10 @@ import { Recipe } from "./Recipe";
 
 export type RecipePost = {
     id:string;
-    name:string;
+    recipename:string;
     steps: string;
     ingredients:string
     likes: number;
     _createdAt: string;
-    user:{
-        id: string;
-        name: string
-    }
+    name:string
 }

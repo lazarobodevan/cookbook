@@ -34,7 +34,7 @@ export default function RecipeCard(
             <div className={styles.header}>
                 <div className={styles.person_container}>
                     <div className={styles.picture}></div>
-                    <p className={styles.person_name}>{post.user.name}</p>
+                    <p className={styles.person_name}>{post.name}</p>
                 </div>
                 <span className={styles.timePosted}>{
                         format(new Date(post._createdAt), 'dd/MM/yyyy')
@@ -42,13 +42,15 @@ export default function RecipeCard(
                 </span>
             </div>
             <Divisor/>
+
             <div className={styles.recipe}>
-                <h2 className={styles.recipe_name}>{post.name}</h2>
+                <h2 className={styles.recipe_name}>{post.recipename}</h2>
                 <span className={styles.recipe_content}>
                     {post.ingredients}
                     {post.steps}
                 </span>
             </div>
+
             <div className={styles.footer}>
                 <div className={styles.actions}>
                     <div onClick={handlePostLiked}>
@@ -63,6 +65,7 @@ export default function RecipeCard(
                     </div>
                 </div>
             </div>
+
             {isCommentsVisible && 
                 <>
                     <Divisor/>
