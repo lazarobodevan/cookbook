@@ -37,6 +37,7 @@ export class RecipeController{
     async getRecipes(){
         try{
             const recipes = await this.recipeService.getRecipes();
+            console.log(recipes);
 
             return recipes;
             

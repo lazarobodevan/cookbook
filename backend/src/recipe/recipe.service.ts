@@ -20,7 +20,9 @@ export class RecipeService{
         return await this.recipeRepository.find({
             order:{
                 _createdAt: 'DESC'
-            }
+            },
+            relations:{user:true},
+            select:{user:{name:true, id:true}}
         })
     }
 

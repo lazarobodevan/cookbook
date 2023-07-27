@@ -6,7 +6,7 @@ export default function Following(){
     return(
         <section className={styles.content}>
             <SearchComponent/>
-            <RecipeCard/>
+            {/* <!-- <RecipeCard/> --> */}
         </section>
     )
 }
