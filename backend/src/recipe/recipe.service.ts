@@ -16,7 +16,7 @@ export class RecipeService{
         return await this.recipeRepository.findOne({where:{id}});
     }
 
-    async getRecipes(){
+    async getRecipes():Promise<any[]>{
         return await this.recipeRepository.query(`
             SELECT recipes.id, recipes.name as recipename, "ingredients", "steps", "categories", "likes", users.name, COUNT(c) as comments, recipes."_createdAt"
             FROM public.recipes

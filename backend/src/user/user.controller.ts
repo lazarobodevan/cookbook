@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Param, ParseUUIDPipe, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, HttpException, HttpStatus, NotFoundException, Param, ParseUUIDPipe, Post, UseGuards } from "@nestjs/common";
 import { CreateUserDTO } from "./dto/createUser.dto";
 import { UserEntity } from "./user.entity";
 import { ListUserDTO } from "./dto/listUser.dto";
@@ -39,7 +39,10 @@ export class UserController{
     @Get('/:id')
     @UseGuards(AuthGuard('jwt'))
     async getUser(@Param('id', new ParseUUIDPipe()) id: string){
-        const user = await this.userService.getById(id);
+        const where = {
+            id
+        }
+        const user = await this.userService.findUser(where);
         return {
             user: new ListUserDTO(user.id, user.name, user.email)
         }
@@ -48,7 +51,17 @@ export class UserController{
     @Get('/likes/:userId')
     @UseGuards(AuthGuard('jwt'))
     async getLikedRecipes(@Param('userId') userId:string){
-        return await this.userService.getLikedRecipes(userId);
+        const relations = {
+            likes:true
+        }
+        const where = {
+            id: userId
+        }
+        const user = await this.userService.findUser(where, relations);
+        if(!user)
+            throw new NotFoundException('User not found')
+
+        return user.likes;
     }
 
 }

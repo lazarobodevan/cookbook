@@ -3,6 +3,7 @@ import { RecipeEntity } from "./recipe.entity";
 import { CreateRecipeDTO } from "./dto/createRecipe.dto";
 import { UserService } from "src/user/user.service";
 import { RecipeService } from "./recipe.service";
+import { ListRecipeDTO } from "./dto/listRecipe.dto";
 
 @Controller('/recipes')
 export class RecipeController{
@@ -26,7 +27,21 @@ export class RecipeController{
             recipeEntity.user = user; 
 
             const recipe = await this.recipeService.createRecipe(recipeEntity);
-            return recipe;
+            return new ListRecipeDTO(
+                {
+                    id: recipe.id,
+                    name: recipe.name,
+                    ingredients: recipe.ingredients,
+                    steps: recipe.steps,
+                    categories: recipe.categories,
+                    likes: recipe.likes,
+                    comments: 0,
+                    _createdAt: recipe._createdAt
+                },
+                {
+                    name: recipe.user.name
+                }
+            );
         }catch(e){
             console.log(e);
             throw new InternalServerErrorException(e.message);
@@ -38,7 +53,24 @@ export class RecipeController{
         try{
             const recipes = await this.recipeService.getRecipes();
 
-            return recipes;
+            return recipes.map(item =>{
+                return new ListRecipeDTO(
+                    {
+                        id: item.id,
+                        name: item.recipename,
+                        ingredients: item.ingredients,
+                        steps: item.steps,
+                        categories: item.categories,
+                        likes: item.likes,
+                        comments: parseInt(item.comments),
+                        _createdAt: item._createdAt
+                    },
+                    {
+                        name: item.name
+                    },
+                    )
+                
+            })
             
         }catch(e){
             console.log(e);
@@ -69,7 +101,8 @@ export class RecipeController{
 
         //Check if post is already liked
         // - If yes, then remove the post relationship with the user and decrement the number
-        const isPostLiked = await this.userService.getLikedPostById(postId, userId);
+        const isPostLiked = user.likes.some(item => item.id === post.id)
+
         if(isPostLiked){
             post.likes--;
             user.likes = user.likes.filter(item => item.id != post.id);
@@ -93,7 +126,7 @@ export class RecipeController{
             }
             user.likes.push(post)
             post.likes++;
-            await this.userService.addLikedPost(user);
+            await this.userService.saveUser(user);
             await this.recipeService.updateLikesNumber(post);
 
             return{

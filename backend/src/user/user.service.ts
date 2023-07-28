@@ -2,7 +2,6 @@ import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { UserEntity } from "./user.entity";
 import { Repository } from "typeorm";
-import { RecipeEntity } from "src/recipe/recipe.entity";
 
 
 @Injectable()
@@ -20,6 +19,13 @@ export class UserService{
             console.log(e);
             throw new InternalServerErrorException('Error while creating user');
         }
+    }
+
+    async findUser(where?:object, relations?:object){
+        return await this.userRepository.findOne({
+            where:where,
+            relations:relations
+        })
     }
 
     async getById(id: string, relations?:object){
@@ -50,23 +56,11 @@ export class UserService{
         }
     }
 
-    async getLikedPostById(postId: string, userId: string){
-        return await this.userRepository.findOne({where:{
-            likes:{
-                id: postId
-            },
-            id: userId
-        }});
-    }
-
     async saveUser(userEntity:UserEntity){
         const result = await this.userRepository.save(userEntity);
         return result;
      }
 
-     async addLikedPost(userEntity: UserEntity){
-        return await this.userRepository.save(userEntity);
-     }
 
      async getLikedRecipes(userId: string){
         return await this.userRepository.findOne({
@@ -82,16 +76,5 @@ export class UserService{
                 }
             }
         });
-     }
-
-     async test(userId:string){
-        return await this.userRepository.findOne({
-            where:{
-                id: userId
-            },
-            relations:{
-                likes:true
-            }
-        })
      }
 }
