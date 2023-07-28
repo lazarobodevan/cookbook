@@ -1,13 +1,25 @@
 import { useState } from 'react'
 import Button from '../../../components/button'
 import styles from './NewPost.module.scss'
+import postService from '../../../services/postService';
 
-export default function NewPostFrm(){
+
+interface Props {
+    onClick: (...params:any) => void
+}
+
+export default function NewPostFrm({onClick}:Props){
+
     const [isExpanded, setIsExpanded] = useState(false);
+    const [title, setTitle] = useState('');
+    const [ingredients, setIngredients] = useState('');
+    const [steps, setSteps] = useState('');
+    const [categories, setCategories] = useState('');
 
     function handleExpanded(){
         setIsExpanded(!isExpanded);
     }
+
     return(
         <div className={styles.wrapper}>
             {
@@ -19,7 +31,7 @@ export default function NewPostFrm(){
             <div className={styles.new_post} style={!isExpanded ? {height:'200px'}: {height:'fit-content', transition:'1s'}}>
                 <span>Faça uma publicação...</span>
                 <h3 className={styles.title}>Título</h3>
-                <input placeholder='Título' className={styles.title_input}/>
+                <input placeholder='Título' className={styles.title_input} onChange={e => setTitle(e.target.value)}/>
 
                 <h3 className={styles.title}>Ingredientes</h3>
                 <span className={styles.warning}>*A cada novo ingrediente, pressione enter</span>
@@ -30,6 +42,7 @@ export default function NewPostFrm(){
     ...' 
                     rows={4}
                     className={styles.textarea}
+                    onChange={e => setIngredients(e.target.value)}
                 />
 
                 <h3 className={styles.title}>Modo de preparo</h3>
@@ -40,10 +53,22 @@ export default function NewPostFrm(){
     Mexa com as mãos
     ...'
                     rows={4} 
-                    className={styles.textarea}/>
+                    className={styles.textarea}
+                    onChange={e => setSteps(e.target.value)}/>
+
+                <h3 className={styles.title}>Categorias</h3>
+                <span className={styles.warning}>*A cada nova categoria, pressione enter</span>
+                <textarea 
+                    placeholder='Bolo
+    doce
+    sobremesa
+    ...'
+                    rows={4} 
+                    className={styles.textarea}
+                    onChange={e => setCategories(e.target.value)}/>
 
                     <Button 
-                        onClick={()=>{return}} 
+                        onClick={() => onClick({name:title, ingredients, steps, categories})} 
                         text='Postar' 
                         style={{marginTop:10, alignSelf:'flex-end'}}
                     />

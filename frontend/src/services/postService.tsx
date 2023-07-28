@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import FetchAPI from "../common/Fetch";
 import { RecipePost } from "../types/RecipePost";
+import { NewPost } from "../types/NewPost";
 
 class PostService{
     
@@ -16,6 +17,10 @@ class PostService{
 
     public async likeRecipe(recipeId:string, userId:string){
         return await FetchAPI(`/recipes/like/${recipeId}/${userId}`,'PUT');
+    }
+
+    public async createNewPost(data:NewPost){
+        return await FetchAPI('/recipes','POST', data);
     }
 }
 
