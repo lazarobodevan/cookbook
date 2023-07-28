@@ -11,8 +11,7 @@ export default function Home(){
 
     const [recipes, setRecipes] = useState<RecipePost[] | []>()
     const [likedRecipes, setLikedRecipes] = useState<{id:string}[] | []>([]);
-    //const [newRecipe, setNewRecipe] = useState<RecipePost>();
-
+    
     const auth = useContext(AuthContext);
 
     async function handleNewPost(data:NewPost){

@@ -112,10 +112,25 @@ export default function RecipeCard(
 
             <div className={styles.recipe}>
                 <h2 className={styles.recipe_name}>{post.recipe.name}</h2>
-                <span className={styles.recipe_content}>
-                    {post.recipe.ingredients}
-                    {post.recipe.steps}
-                </span>
+                <div >
+                    <h4>Ingredientes</h4>
+                    <ul className={styles.recipe_content}>
+                        {
+                            recipe.recipe.ingredients.split('\n').map(item=>{
+                                return <li>{item}</li>
+                            })
+                        }
+                    </ul>
+                    <br/>
+                    <h4>Modo de preparo</h4>
+                    <ol className={styles.recipe_content}>
+                        {
+                            recipe.recipe.steps.split('\n').map(item=>{
+                                return <li>{item}</li>
+                            })
+                        }
+                    </ol>
+                </div>
             </div>
 
             <div className={styles.footer}>
