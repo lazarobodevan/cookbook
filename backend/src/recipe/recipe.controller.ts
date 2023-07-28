@@ -37,7 +37,6 @@ export class RecipeController{
     async getRecipes(){
         try{
             const recipes = await this.recipeService.getRecipes();
-            console.log(recipes);
 
             return recipes;
             
@@ -60,7 +59,7 @@ export class RecipeController{
         }
 
         //Check if user exists
-        let user = await this.userService.getById(userId);
+        let user = await this.userService.test(userId);
         if(!user){
             throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
         }
@@ -70,7 +69,7 @@ export class RecipeController{
         const isPostLiked = await this.userService.getLikedPostById(postId, userId);
         if(isPostLiked){
             post.likes--;
-            await this.userService.deleteLikedPostById(postId, userId);
+            await this.userService.deleteLikedPost(postId, user);
             await this.recipeService.updateLikesNumber(post);
 
             return {
@@ -82,10 +81,15 @@ export class RecipeController{
         //Check if post is already liked
         // - If not, add an ocurrence in the relationship and add 1 to the likes number
         if(!isPostLiked){
-            if(!user.likes){
-                user.likes = []
+
+            const likedRecipes = await this.userService.getLikedRecipes(user.id);
+
+            if(!likedRecipes.likes.length){
+                console.log('entrei')
+                user.likes = [];
             }
-            user.likes.push(post);
+            console.log(user.likes)
+            user.likes.push(post)
             post.likes++;
             await this.userService.addLikedPost(user);
             await this.recipeService.updateLikesNumber(post);
@@ -97,7 +101,7 @@ export class RecipeController{
 
         
 
-        //If post is liked already
+        
     }
 
 }

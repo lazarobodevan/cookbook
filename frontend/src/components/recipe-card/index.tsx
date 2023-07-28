@@ -4,10 +4,12 @@ import {AiOutlineHeart, AiFillHeart} from 'react-icons/ai'
 import {BiCommentDetail} from 'react-icons/bi'
 import Divisor from '../divisor';
 import RecipeComment from '../recipe-comment';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Button from '../button';
 import { RecipePost } from '../../types/RecipePost';
 import {format} from 'date-fns'
+import { AuthContext } from '../../contexts/Auth/AuthContext';
+import postService from '../../services/postService';
 
 
 interface Props{
@@ -20,20 +22,32 @@ export default function RecipeCard(
         isLiked
     }:Props){
 
+    const auth = useContext(AuthContext);
+
+    const [recipe, setRecipe] = useState(post);
     const [isCommentsVisible, setIsCommentsVisible] = useState(false);
     const [isPostLiked, setIsPostLiked] = useState(isLiked);
+    
 
     function handleCommentsVisible(){
         setIsCommentsVisible(!isCommentsVisible);
     }
 
-    function handlePostLiked(){
+    async function handlePostLiked(){
+        await postService.likeRecipe(post.id, auth.user!.id);
+        updateLikesNumber()
         setIsPostLiked(!isPostLiked);
+    }
+
+    function updateLikesNumber(){
+        isPostLiked ? setRecipe({...recipe, likes: recipe.likes-1}) 
+        : setRecipe({...recipe, likes: recipe.likes+1});
     }
 
     useEffect(()=>{
         setIsPostLiked(isLiked)
-    },[isLiked]);
+        setRecipe(post);
+    },[isLiked, post]);
 
     return(
         <div className={styles.card}>
@@ -65,10 +79,11 @@ export default function RecipeCard(
                             :
                             <AiOutlineHeart size={32} style={{color:'#5B5B5B', cursor:'pointer'}}/>  
                         }
-                        {post.likes}
+                        {recipe.likes}
                     </div>
                     <div onClick={handleCommentsVisible}>
                         <BiCommentDetail size={32} style={{color:'#5B5B5B', cursor:'pointer'}}/>
+                        {recipe.comments}
                     </div>
                 </div>
             </div>

@@ -56,13 +56,13 @@ export class UserService{
         }});
     }
 
-    async deleteLikedPostById(postId:string, userId:string){
+    async deleteLikedPost(postId:string, user:UserEntity){
         let userEntity = await this.userRepository.findOne({
             relations:{
                 likes: true
             },
             where:{
-                id:userId
+                id: user.id
             }
         })
 
@@ -71,7 +71,8 @@ export class UserService{
         });
         userEntity.likes = newLikes;
 
-        return await this.userRepository.save(userEntity);
+        const result = await this.userRepository.save(userEntity);
+        return result;
         
      }
 
@@ -93,5 +94,16 @@ export class UserService{
                 }
             }
         });
+     }
+
+     async test(userId:string){
+        return await this.userRepository.findOne({
+            where:{
+                id: userId
+            },
+            relations:{
+                likes:true
+            }
+        })
      }
 }

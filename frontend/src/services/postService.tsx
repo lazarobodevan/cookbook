@@ -15,7 +15,7 @@ class PostService{
     }
 
     public async likeRecipe(recipeId:string, userId:string){
-        const resp = await FetchAPI(`/like/${recipeId}/${userId}`,'PUT');
+        return await FetchAPI(`/recipes/like/${recipeId}/${userId}`,'PUT');
     }
 }
 
