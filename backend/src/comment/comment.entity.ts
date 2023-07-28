@@ -18,5 +18,5 @@ export class CommentEntity{
     recipe!: RecipeEntity;
 
     @CreateDateColumn()
-    _createdAt: Date;
+    _createdAt: string;
 }

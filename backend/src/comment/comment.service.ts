@@ -21,4 +21,17 @@ export class CommentService{
         })
     }
 
+    async getComments(postId:string){
+        return await this.commentRepository.find({
+            where:{
+                recipe:{
+                    id: postId
+                }
+            },
+            relations:{
+                user:true
+            }
+        })
+    }
+
 }

@@ -16,11 +16,12 @@ export default function Home(){
     useEffect(()=>{
         const getRecipes = async() =>{
             const recipes = await postService.getRecipes()
+            
             setRecipes(recipes);
         }
         const getLikedRecipes = async()=>{
             const liked = await postService.getLikedRecipes(auth.user!.id);
-            console.log("aa"+liked)
+            
             setLikedRecipes(liked);
         }
         getRecipes();
@@ -32,9 +33,10 @@ export default function Home(){
         <section className={styles.content}>
             <NewPostFrm/>
             {recipes?.map(item => {
-                console.log(likedRecipes)
-                const isLiked = likedRecipes.find((el:any) => el.id === item.id);
-                return <RecipeCard post={item} isLiked={!isLiked ? false: true} key={item.id}/>
+                
+                const isLiked = likedRecipes.find((el:any) => el.id === item.recipe.id);
+                return <RecipeCard post={item} isLiked={!isLiked ? false: true} key={item.recipe.id}/>
+    
             })}
         </section>
         </>

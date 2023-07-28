@@ -27,6 +27,8 @@ export class RecipeService{
             on recipes.id = "recipeId"
 
             GROUP BY recipes.id, users.name
+
+            ORDER BY recipes."_createdAt" DESC
         `)
     }
 

@@ -1,11 +1,12 @@
-import { Body, Controller, InternalServerErrorException, Param, ParseUUIDPipe, Post, Put } from "@nestjs/common";
+import { Body, Controller, Get, InternalServerErrorException, Param, ParseUUIDPipe, Post, Put } from "@nestjs/common";
 import { CreateCommentDTO } from "./dto/createComment.dto";
 import { CommentService } from "./comment.service";
 import { CommentEntity } from "./comment.entity";
 import { RecipeService } from "src/recipe/recipe.service";
 import { UserService } from "src/user/user.service";
+import { ListCommentDTO } from "./dto/listComment.dto";
 
-@Controller('/comments')
+@Controller('/recipes/comments')
 export class CommentController{
 
     constructor(
@@ -47,6 +48,21 @@ export class CommentController{
             console.log(e);
             return new InternalServerErrorException(e.message);
         }
+    }
+
+    @Get('/:id')
+    async getComments(@Param('id', new ParseUUIDPipe()) id: string){
+        const comments = await this.commentService.getComments(id);
+
+        return comments.map(item => {
+            return new ListCommentDTO({
+                name: item.user.name
+            },
+            {
+                text: item.comment,
+                _createdAt: item._createdAt
+            })
+        })
     }
     
 }
