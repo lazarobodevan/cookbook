@@ -22,11 +22,14 @@ export class UserService{
         }
     }
 
-    async getById(id: string){
+    async getById(id: string, relations?:object){
         try{
-            const user = await this.userRepository.findOne({where:{
-                id: id
-            }});
+            const user = await this.userRepository.findOne({
+                where:{
+                    id: id
+                },
+                relations
+            });
 
             return user;
         }catch(e){
@@ -56,24 +59,9 @@ export class UserService{
         }});
     }
 
-    async deleteLikedPost(postId:string, user:UserEntity){
-        let userEntity = await this.userRepository.findOne({
-            relations:{
-                likes: true
-            },
-            where:{
-                id: user.id
-            }
-        })
-
-        const newLikes = userEntity.likes.filter(post => {
-            post.id != postId
-        });
-        userEntity.likes = newLikes;
-
+    async saveUser(userEntity:UserEntity){
         const result = await this.userRepository.save(userEntity);
         return result;
-        
      }
 
      async addLikedPost(userEntity: UserEntity){

@@ -59,7 +59,10 @@ export class RecipeController{
         }
 
         //Check if user exists
-        let user = await this.userService.test(userId);
+        const relations = {
+            likes:true
+        }
+        let user = await this.userService.getById(userId, relations);
         if(!user){
             throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
         }
@@ -69,7 +72,8 @@ export class RecipeController{
         const isPostLiked = await this.userService.getLikedPostById(postId, userId);
         if(isPostLiked){
             post.likes--;
-            await this.userService.deleteLikedPost(postId, user);
+            user.likes = user.likes.filter(item => item.id != post.id);
+            await this.userService.saveUser(user);
             await this.recipeService.updateLikesNumber(post);
 
             return {
@@ -85,10 +89,8 @@ export class RecipeController{
             const likedRecipes = await this.userService.getLikedRecipes(user.id);
 
             if(!likedRecipes.likes.length){
-                console.log('entrei')
                 user.likes = [];
             }
-            console.log(user.likes)
             user.likes.push(post)
             post.likes++;
             await this.userService.addLikedPost(user);
