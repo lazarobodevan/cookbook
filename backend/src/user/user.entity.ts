@@ -19,7 +19,7 @@ export class UserEntity{
     password: string;
 
     @OneToMany(()=> RecipeEntity, (recipeEntity) => recipeEntity.user)
-    recipies?: RecipeEntity[]
+    recipes?: RecipeEntity[]
 
     @ManyToMany(()=> UserEntity, {cascade: true})
     @JoinTable()

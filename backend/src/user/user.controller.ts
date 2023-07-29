@@ -64,5 +64,25 @@ export class UserController{
         return user.likes;
     }
 
+    @Get('/profile/:id')
+    @UseGuards(AuthGuard('jwt'))
+    async getUserInfo(@Param('id', new ParseUUIDPipe()) id:string){
+        const relations = {
+            likes:{
+                user:true
+            },
+            comments:{
+                user:true,
+                recipe:true
+            },
+            recipes:true
+        }
+        const where = {
+            id
+        }
+
+        return await this.userService.findUser(where,relations);
+    }
+
 }
 

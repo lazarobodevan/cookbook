@@ -28,6 +28,7 @@ export default function SearchComponent({onClick}:Props){
                     style={{gridArea:'chk'}} 
                     className={styles.chkbox}
                     onChange={e => setBy(e.target.value)}
+                    checked={true}
                 />
                 <label >Categoria</label>
             </div>

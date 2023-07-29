@@ -1,3 +1,5 @@
+import { User } from "./User";
+
 export type Recipe = {
     id:string,
     name:string;
@@ -7,4 +9,5 @@ export type Recipe = {
     comments:number;
     likes:number;
     _createdAt:string;
+    user?:User;
 }

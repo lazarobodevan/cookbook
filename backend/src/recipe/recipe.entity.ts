@@ -26,7 +26,7 @@ export class RecipeEntity{
     @OneToMany(()=> CommentEntity, (commentEntity) => commentEntity.recipe)
     comments: CommentEntity[];
 
-    @ManyToOne(()=> UserEntity, (userEntity)=>userEntity.recipies, {nullable: false})
+    @ManyToOne(()=> UserEntity, (userEntity)=>userEntity.recipes, {nullable: false})
     user: UserEntity;
 
     @CreateDateColumn()

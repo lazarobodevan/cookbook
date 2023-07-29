@@ -5,7 +5,7 @@ export default function PeopleYouFollowItem(){
             <div className={styles.container}>
                 <div className={styles.person}>
                     <div className={styles.picture}></div>
-                    <span className={styles.name}>Tonha da Silva</span>
+                    <span className={styles.name}>Joana da Silva</span>
                 </div>
             </div>
     )
