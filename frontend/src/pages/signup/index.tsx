@@ -5,6 +5,8 @@ import Button from '../../components/button'
 import { useState } from 'react'
 import userService from '../../services/userService'
 import { useNavigate } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import ToastService from '../../common/toast/ToastService'
 
 export default function Signup(){
 
@@ -17,25 +19,30 @@ export default function Signup(){
 
     function isPasswordValid(){
         if(password.length < 6){
-            //error
+            ToastService.error('Senha deve ser maior que 6 caracteres');
             return false;
         }
         if(password !== confirm){
-            //error
+            ToastService.error('Senhas não batem')
             return false;
         }
         return true;
     }
 
     async function handleSubmit(){
+
+        if(!isPasswordValid()){
+            return;
+        }
+
         const resp = await userService.createUser(name,email,password);
 
         //if ok
         if(!resp.statusCode){
-            //success
+            ToastService.success('Conta criada com sucesso')
             navigator('/');
         }else{
-            //error
+            ToastService.error(resp.message);
         }
     }
 
@@ -86,6 +93,16 @@ export default function Signup(){
                 />
                 <Button text='Cadastrar' onClick={handleSubmit}/>
             </div>
+
+            <ToastContainer position="bottom-right"
+                    autoClose={1000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover/>
         </section>
     )
 }

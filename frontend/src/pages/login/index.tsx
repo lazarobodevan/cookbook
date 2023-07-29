@@ -5,6 +5,8 @@ import Button from '../../components/button';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useContext } from 'react';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
+import { ToastContainer } from 'react-toastify';
+import ToastService from '../../common/toast/ToastService';
 
 export default function Login(){
 
@@ -20,6 +22,8 @@ export default function Login(){
             const isLogged = await auth.login(email, password);
             if(isLogged){
                 navigate('/home');
+            }else{
+                ToastService.error('Usuário ou senha incorretos');
             }
         }
     }
@@ -45,6 +49,15 @@ export default function Login(){
                 <Link to={'/signup'} className={styles.link} >Cadastre-se</Link>
             </section>
 
+            <ToastContainer position="bottom-right"
+                    autoClose={1000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover/>
         </section>
     );
 }
