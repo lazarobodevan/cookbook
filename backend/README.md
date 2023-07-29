@@ -41,6 +41,8 @@ $ npm run typeorm migration:run
 $ npm run start
 
 # watch mode
+$ docker-compose up
+$ npm run typeorm migration:run
 $ npm run start:dev
 
 # production mode
