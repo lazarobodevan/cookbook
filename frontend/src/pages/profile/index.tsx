@@ -11,6 +11,7 @@ import { Recipe } from '../../types/Recipe';
 import userService from '../../services/userService';
 import { AuthContext } from '../../contexts/Auth/AuthContext';
 import { User } from '../../types/User';
+import Button from '../../components/button';
 
 export default function Profile(){
 
@@ -90,6 +91,8 @@ export default function Profile(){
                     return <YourCommentItem comment={item.comment} recipeName={item.recipe!.name} date={item._createdAt} userName={item.user!.name} key={item.id}/>
                 })}
             </BaseCard>
+
+            <Button text='Sair' onClick={auth.logout}/>
             
             
         </section>

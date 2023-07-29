@@ -2,8 +2,43 @@ import styles from './Signup.module.scss'
 import image from '../../assets/images/signup-background.png'
 import FormInput from '../../components/input'
 import Button from '../../components/button'
+import { useState } from 'react'
+import userService from '../../services/userService'
+import { useNavigate } from 'react-router-dom'
 
 export default function Signup(){
+
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirm, setConfirm] = useState('');
+
+    const navigator = useNavigate();
+
+    function isPasswordValid(){
+        if(password.length < 6){
+            //error
+            return false;
+        }
+        if(password !== confirm){
+            //error
+            return false;
+        }
+        return true;
+    }
+
+    async function handleSubmit(){
+        const resp = await userService.createUser(name,email,password);
+
+        //if ok
+        if(!resp.statusCode){
+            //success
+            navigator('/');
+        }else{
+            //error
+        }
+    }
+
     return(
         <section className={styles.content}>
             <img src={image} className={styles.image}/>
@@ -11,7 +46,7 @@ export default function Signup(){
                 <h1>Cadastre-se</h1>
                 <FormInput 
                     placeholder='Nome' 
-                    onChange={()=>{return}} 
+                    onChange={e => setName(e.target.value)} 
                     style={{
                         border: '1px solid #737373', 
                         color:'#3C3C3C',
@@ -22,7 +57,7 @@ export default function Signup(){
 
                 <FormInput 
                     placeholder='Email' 
-                    onChange={()=>{return}} 
+                    onChange={e => setEmail(e.target.value)} 
                     style={{
                         border: '1px solid #737373', 
                         color:'#3C3C3C',
@@ -32,7 +67,7 @@ export default function Signup(){
 
                 <FormInput 
                     placeholder='Senha' 
-                    onChange={()=>{return}} 
+                    onChange={e => setPassword(e.target.value)} 
                     style={{
                         border: '1px solid #737373', 
                         color:'#3C3C3C',
@@ -42,14 +77,14 @@ export default function Signup(){
 
                 <FormInput 
                     placeholder='Confirmar senha' 
-                    onChange={()=>{return}} 
+                    onChange={e => setConfirm(e.target.value)} 
                     style={{
                         border: '1px solid #737373', 
                         color:'#3C3C3C',
                         marginBottom: 40
                     }}
                 />
-                <Button text='Cadastrar' onClick={()=>{return}}/>
+                <Button text='Cadastrar' onClick={handleSubmit}/>
             </div>
         </section>
     )

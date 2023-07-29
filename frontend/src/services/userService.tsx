@@ -9,6 +9,10 @@ class UserService{
 
     }
 
+    public async createUser(name:string, email:string, password:string):Promise<any>{
+        return await FetchAPI(`/users`,'POST',{name, email, password})
+    }
+
 }
 
 export default new UserService();
