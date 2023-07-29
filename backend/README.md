@@ -36,6 +36,8 @@ $ npm install
 
 ```bash
 # development
+$ docker-compose up
+$ npm run typeorm migration:run
 $ npm run start
 
 # watch mode
